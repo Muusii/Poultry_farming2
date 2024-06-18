@@ -1,0 +1,39 @@
+{
+  "canisters": {
+    "poultry_farming1_backend": {
+      "build": "npx azle poultry_farming1_backend",
+      "candid": "src/poultry_farming1_backend/poultry_farming1_backend.did",
+      "gzip": true,
+      "main": "src/poultry_farming1_backend/src/index.ts",
+      "tech_stack": {
+        "cdk": {
+          "azle": {}
+        },
+        "language": {
+          "javascript": {},
+          "typescript": {}
+        }
+      },
+      "type": "custom",
+      "wasm": ".azle/poultry_farming1_backend/poultry_farming1_backend.wasm"
+    },
+    "poultry_farming1_frontend": {
+      "dependencies": [
+        "poultry_farming1_backend"
+      ],
+      "source": [
+        "src/poultry_farming1_frontend/dist"
+      ],
+      "type": "assets",
+      "workspace": "poultry_farming1_frontend"
+    }
+  },
+  "defaults": {
+    "build": {
+      "args": "",
+      "packtool": ""
+    }
+  },
+  "output_env_file": ".env",
+  "version": 1
+}
