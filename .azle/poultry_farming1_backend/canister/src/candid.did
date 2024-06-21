@@ -1,0 +1,18 @@
+service: () -> {
+    createBroilers: (nat64, nat64, text) -> (record {id:principal; age_weeks:nat64; createdAt:nat64; sold:nat64; numberOfBroilers:nat64; available:nat64; breed:text});
+    createLayers: (nat64, nat64, text) -> (record {id:principal; age_weeks:nat64; createdAt:nat64; sold:nat64; numberOfLayers:nat64; available:nat64; breed:text});
+    createPoultryRecord: (text, nat64, text, nat64) -> (record {age_weeks:nat64; createdAt:nat64; nfcTagId:principal; feedType:text; vaccination_weeks:nat64; typeOfPoultry:text});
+    enterDamagedEggs: (text, nat64) -> (record {id:principal; createdAt:nat64; sold:nat64; available:nat64; damagedEggs:nat64; laidEggs:nat64; breed:text});
+    enterLaidEggs: (text, nat64) -> (record {id:principal; createdAt:nat64; sold:nat64; available:nat64; damagedEggs:nat64; laidEggs:nat64; breed:text});
+    enterSoldBroilers: (nat64, nat64, text) -> (record {id:principal; age_weeks:nat64; createdAt:nat64; sold:nat64; numberOfBroilers:nat64; available:nat64; breed:text});
+    enterSoldEggs: (text, nat64) -> (record {id:principal; createdAt:nat64; sold:nat64; available:nat64; damagedEggs:nat64; laidEggs:nat64; breed:text});
+    enterSoldLayers: (nat64, nat64, text) -> (record {id:principal; age_weeks:nat64; createdAt:nat64; sold:nat64; numberOfLayers:nat64; available:nat64; breed:text});
+    getAllBroilers: () -> (vec record {id:principal; age_weeks:nat64; createdAt:nat64; sold:nat64; numberOfBroilers:nat64; available:nat64; breed:text}) query;
+    getAllEggs: () -> (vec record {id:principal; createdAt:nat64; sold:nat64; available:nat64; damagedEggs:nat64; laidEggs:nat64; breed:text}) query;
+    getAllLayers: () -> (vec record {id:principal; age_weeks:nat64; createdAt:nat64; sold:nat64; numberOfLayers:nat64; available:nat64; breed:text}) query;
+    getAllPoultryRecords: () -> (vec record {age_weeks:nat64; createdAt:nat64; nfcTagId:principal; feedType:text; vaccination_weeks:nat64; typeOfPoultry:text}) query;
+    getBroilerById: (principal) -> (opt record {id:principal; age_weeks:nat64; createdAt:nat64; sold:nat64; numberOfBroilers:nat64; available:nat64; breed:text}) query;
+    getEggById: (principal) -> (opt record {id:principal; createdAt:nat64; sold:nat64; available:nat64; damagedEggs:nat64; laidEggs:nat64; breed:text}) query;
+    getLayerById: (principal) -> (opt record {id:principal; age_weeks:nat64; createdAt:nat64; sold:nat64; numberOfLayers:nat64; available:nat64; breed:text}) query;
+    getPoultryRecordById: (principal) -> (opt record {age_weeks:nat64; createdAt:nat64; nfcTagId:principal; feedType:text; vaccination_weeks:nat64; typeOfPoultry:text}) query;
+}
