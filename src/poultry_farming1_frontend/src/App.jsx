@@ -1,31 +1,28 @@
-import { useState } from 'react';
-import { poultry_farming1_backend } from 'declarations/poultry_farming1_backend';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Navbar from './components/Navabar';
+import HomePage from './pages/Homepage';
+// import AboutPage from './pages/About';
+//import Featurepage from './pages/Feature';
+// import CreatePoultryRecord from './pages/Feature/CreatePoultryRecord';
 
-function App() {
-  const [greeting, setGreeting] = useState('');
+import Footer from './components/Footer'
 
-  function handleSubmit(event) {
-    event.preventDefault();
-    const name = event.target.elements.name.value;
-    poultry_farming1_backend.greet(name).then((greeting) => {
-      setGreeting(greeting);
-    });
-    return false;
-  }
-
+const App = () => {
   return (
-    <main>
-      <img src="/logo2.svg" alt="DFINITY logo" />
-      <br />
-      <br />
-      <form action="#" onSubmit={handleSubmit}>
-        <label htmlFor="name">Enter your name: &nbsp;</label>
-        <input id="name" alt="Name" type="text" />
-        <button type="submit">Click Me!</button>
-      </form>
-      <section id="greeting">{greeting}</section>
-    </main>
+    <Router>
+      <Navbar />
+      
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        {/* <Route path="/about" element={<AboutPage />} /> */}
+        {/* <Route path="/Featurepage" element={<Feature />} /> */}
+     
+        
+      </Routes>
+      <Footer/>
+    </Router>
   );
-}
+};
 
 export default App;
