@@ -84,15 +84,15 @@ After deploying the canister, you can interact with it using the following comma
 
 ### Example: Create new broilers bought
 ```
-dfx canister call linkedIn createPost '{
-    "age": 6;
-    "numberOfBroilers": 4500;
-    "breed": "Red"
-    }'
+dfx canister call poultry_farming1_backend createBroilers '(record{
+    age_weeks = 6;
+    numberOfBroilers= 4500;
+    breed= "Red"
+    })'
 ```
 ### Example: Get all Broilers.
 ```
-dfx canister call poultry_farming getAllBroilers
+dfx canister call poultry_farming1_backend getAllBroilers
 ```
 
 Which will start a server at `http://localhost:8080`, proxying API requests to the replica at port 4943.
