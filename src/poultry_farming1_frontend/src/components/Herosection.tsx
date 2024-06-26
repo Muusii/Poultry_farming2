@@ -86,27 +86,32 @@ const HeroSection = () => {
 
   return (
     <div className="bg-i3m-dark text-white p-4 relative overflow-hidden">
-      {/* <Particles id="tsparticles" options={particlesOptions} /> */}
-     
-      <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0 z-10">
-        <div className="text-left">
+      <div className="absolute inset-0 z-0">
+        <Particles id="tsparticles" options={particlesOptions} />
+      </div>
+
+      <div className="relative z-10 max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0">
+        <div className="text-left md:w-1/2">
           <h1 className="text-4xl font-bold text-i3m-purple">POULTRY FARMING DAPP</h1>
           <p className="mt-3 text-white text-xl">
-           This poultry farming management system using the azle library to interact with the Internet Computer (ICP). It sets up data structures and operations for managing poultry records, including broilers, layers, and eggs. Each poultry type (broiler, layer, and egg) has its respective record and payload schemas.          </p>
+            This poultry farming management system uses the Azle library to interact with the Internet Computer (ICP). It sets up data structures and operations for managing poultry records, including broilers, layers, and eggs. Each poultry type (broiler, layer, and egg) has its respective record and payload schemas.
+          </p>
           <h2 className="mt-4 text-2xl font-bold text-i3m-purple">Introduction</h2>
           <p className="mt-2 text-white">
-           The system uses StableBTreeMap to ensure data persistence and leverages the Principal type for generating unique identifiers. Key operations include tracking the age, breed, availability, and sales of poultry, as well as managing detailed records that can be accessed via NFC tags for transparency and customer engagement.          </p>
+            The system uses StableBTreeMap to ensure data persistence and leverages the Principal type for generating unique identifiers. Key operations include tracking the age, breed, availability, and sales of poultry, as well as managing detailed records that can be accessed via NFC tags for transparency and customer engagement.
+          </p>
           <motion.button
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
             className="mt-4 bg-i3m-pink hover:bg-i3m-purple text-white font-bold py-2 px-4 rounded shadow"
+            aria-label="Learn More"
           >
             Learn More
           </motion.button>
         </div>
         <motion.img
           src={Logo}
-          alt="I3M Logo"
+          alt="Poultry Farming DApp Logo"
           className="w-full md:w-1/2 h-auto rounded-lg shadow-xl"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -114,53 +119,44 @@ const HeroSection = () => {
         />
       </div>
 
-     {/* 3D Cards Section */}
-     <div className="mt-10">
+      {/* 3D Cards Section */}
+      <div className="mt-10">
         <h2 className="text-3xl font-bold text-center text-i3m-purple">Core Components</h2>
-        <CardContainer containerClassName="mt-10">
-           <CardBody>
+        <CardContainer containerClassName="mt-10 flex flex-wrap justify-center">
+          <CardBody>
             <CardItem translateX={20} translateY={20} translateZ={50} rotateX={20} rotateY={20} rotateZ={0}>
               <h3 className="text-xl font-bold text-i3m-purple">Structures</h3>
-              <p className="text-white">
-                {/* The heart of the I3M project, this repository includes the core functionalities of the game engine, such as rendering, physics, and input systems. It is designed to provide a robust foundation for building immersive 3D experiences. */}
-              </p>
-              <ul className="text-white mt-2">
-                <ol>PoultryRecord: This structure holds general information about poultry, including createdAt, typeOfPoultry, age_weeks, feedType, vaccination_weeks, and nfcTagId.</ol>
-                <ol>Broiler: This structure is specific to broilers and includes fields like id, age_weeks, numberOfBroilers, breed, createdAt, available, and sold.</ol>
-                <ol>Layer: This structure is specific to layers and includes fields like id, age_weeks, numberOfLayers, breed, createdAt, available, and sold.</ol>
-                <ol>Egg: This structure holds information about eggs, including id, breed, createdAt, available, sold, laidEggs, and damagedEggs.</ol>
+              <ul className="text-white mt-2 list-disc list-inside">
+                <li>PoultryRecord: General information about poultry, including createdAt, typeOfPoultry, age_weeks, feedType, vaccination_weeks, and nfcTagId.</li>
+                <li>Broiler: Specific to broilers and includes fields like id, age_weeks, numberOfBroilers, breed, createdAt, available, and sold.</li>
+                <li>Layer: Specific to layers and includes fields like id, age_weeks, numberOfLayers, breed, createdAt, available, and sold.</li>
+                <li>Egg: Information about eggs, including id, breed, createdAt, available, sold, laidEggs, and damagedEggs.</li>
               </ul>
             </CardItem>
           </CardBody>
           <CardBody>
             <CardItem translateX={10} translateY={10} translateZ={30} rotateX={10} rotateY={10} rotateZ={0}>
               <h3 className="text-xl font-bold text-i3m-purple">Databases</h3>
-              <p className="text-white">
-                {/* Facilitates seamless integration between the game engine and the ICP blockchain, enabling features like token transactions, smart contracts, and digital asset management. */}
-              </p>
-              <ul className="text-white mt-2">
-                <ol>PoultryRecords: A StableBTreeMap that stores general poultry records, making it possible to retrieve and update poultry information efficiently.</ol>
-                <ol>Broilers: A StableBTreeMap that stores broiler records, managing data related to broiler chickens.</ol>
-                <ol>Layers: A StableBTreeMap that stores layer records, managing data related to layer chickens.</ol>
-                <ol>Eggs: A StableBTreeMap that stores egg records, managing data related to egg production and sales.</ol>
+              <ul className="text-white mt-2 list-disc list-inside">
+                <li>PoultryRecords: A StableBTreeMap that stores general poultry records, making it possible to retrieve and update poultry information efficiently.</li>
+                <li>Broilers: A StableBTreeMap that stores broiler records, managing data related to broiler chickens.</li>
+                <li>Layers: A StableBTreeMap that stores layer records, managing data related to layer chickens.</li>
+                <li>Eggs: A StableBTreeMap that stores egg records, managing data related to egg production and sales.</li>
               </ul>
             </CardItem>
           </CardBody>
           <CardBody>
             <CardItem translateX={10} translateY={10} translateZ={30} rotateX={10} rotateY={10} rotateZ={0}>
               <h3 className="text-xl font-bold text-i3m-purple">CRUD Functions</h3>
-              <p className="text-white">
-                {/* A comprehensive toolkit and SDK for developers, featuring tools for asset creation, scene setup, and game development workflows. */}
-              </p>
-              <ul className="text-white mt-2">
-                <ol>createPoultryRecord: Creates a new poultry record with specified details.</ol>
-                <ol>createBroilers: Creates new broiler records.</ol>
-                <ol>enterSoldBroilers: Updates broiler records to reflect sales.</ol>
-                <ol>getAllBroilers: Retrieves all broiler records.</ol>
-                <ol>enterLaidEggs: Adds laid eggs to the records.</ol>
-                <ol>enterSoldEggs: Updates records with sold eggs.</ol>
-                <ol>enterDamagedEggs: Updates records with damaged eggs.</ol>
-                <ol>getAllEggs: Retrieves all egg records.</ol>
+              <ul className="text-white mt-2 list-disc list-inside">
+                <li>createPoultryRecord: Creates a new poultry record with specified details.</li>
+                <li>createBroilers: Creates new broiler records.</li>
+                <li>enterSoldBroilers: Updates broiler records to reflect sales.</li>
+                <li>getAllBroilers: Retrieves all broiler records.</li>
+                <li>enterLaidEggs: Adds laid eggs to the records.</li>
+                <li>enterSoldEggs: Updates records with sold eggs.</li>
+                <li>enterDamagedEggs: Updates records with damaged eggs.</li>
+                <li>getAllEggs: Retrieves all egg records.</li>
               </ul>
             </CardItem>
           </CardBody>

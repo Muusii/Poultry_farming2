@@ -12,20 +12,18 @@ import {
     ic,
 } from "azle";
 
-//Define poultry records thats both broiler and layers;
+// Define poultry records that's both broiler and layers;
 const PoultryRecord = Record({
-    //id: Principal,
     createdAt: nat64,
     typeOfPoultry: text,
     age_weeks: nat64,
     feedType: text,
     vaccination_weeks: nat64,
-    nfcTagId: Principal, // this field with help customers to scan the poultry record to know all details included.
+    nfcTagId: Principal,
 })
 
 // PoultryRecord Payload
 const PoultryRecordPayload = Record({
-    //id: Principal,
     typeOfPoultry: text,
     age_weeks: nat64,
     feedType: text,
@@ -44,7 +42,7 @@ const Broiler = Record({
     sold: nat64,
 });
 
-// broiler Payload
+// Broiler Payload
 const BroilerPayload = Record({
     age_weeks: nat64,
     numberOfBroilers: nat64,
@@ -61,10 +59,10 @@ const Layer = Record({
     sold: nat64,
 });
 
-//layer payload
+// Layer Payload
 const LayerPayload = Record({
     age_weeks: nat64,
-    numberOfBroilers: nat64,
+    numberOfLayers: nat64,
     breed: text,
 });
 
@@ -76,17 +74,15 @@ const Egg = Record({
     sold: nat64,
     laidEggs: nat64,
     damagedEggs: nat64,
-    //remaining: nat64,
 });
 
-//egg payload
+// Egg Payload
 const EggPayload = Record({
     breed: text,
     available: nat64,
     sold: nat64,
     laidEggs: nat64,
     damagedEggs: nat64,
-    remaining: nat64,
 });
 
 // Initialize databases for broiler, layer, and egg records
@@ -95,11 +91,9 @@ const Broilers = StableBTreeMap<Principal, Broiler>(1);
 const Layers = StableBTreeMap<Principal, Layer>(2);
 const Eggs = StableBTreeMap<Principal, Egg>(3);
 
-
 export default Canister({
-//function to create poultry records
+    // Function to create poultry records
     createPoultryRecord: update([text, nat64, text, nat64], PoultryRecord, (typeOfPoultry, age_weeks, feedType, vaccination_weeks) => {
-        //const id = generateId();
         const createdAt = ic.time();
         const nfcTagId = generateId();
         const poultryRecord = { nfcTagId, createdAt, typeOfPoultry, age_weeks, feedType, vaccination_weeks };
@@ -107,7 +101,7 @@ export default Canister({
         return poultryRecord;
     }),
     
-     // Function to poultry records by ID
+    // Function to get poultry record by ID
     getPoultryRecordById: query([Principal], Opt(PoultryRecord), (nfcTagId) => {
         return PoultryRecords.get(nfcTagId);
     }),
@@ -118,7 +112,7 @@ export default Canister({
     }),
 
     // Function to create broiler records
-    createBroilers: update([nat64, nat64, text], Broiler, (age_weeks, numberOfBroilers, breed) => {
+    createBroilers: update([BroilerPayload], Broiler, ({ age_weeks, numberOfBroilers, breed }) => {
         const id = generateId();
         const createdAt = ic.time();
         const available = numberOfBroilers;
@@ -129,14 +123,14 @@ export default Canister({
     }),
 
     // Function to update the availability of broilers after sale
-    enterSoldBroilers: update([nat64, nat64, text], Broiler, (age_weeks, numberOfBroilers, breed) => {
-        const id = generateId();
-        const createdAt = ic.time();
-        const available = 0n;
-        const sold = numberOfBroilers;
-        const newBroilers = { id, age_weeks, numberOfBroilers, breed, createdAt, available, sold };
-        Broilers.insert(id, newBroilers);
-        return newBroilers;
+    enterSoldBroilers: update([Principal, nat64], Opt(Broiler), (id, soldQuantity) => {
+        const broiler = Broilers.get(id);
+        if (broiler) {
+            broiler.available -= soldQuantity;
+            broiler.sold += soldQuantity;
+            Broilers.insert(id, broiler);
+        }
+        return broiler;
     }),
 
     // Function to get broiler record by ID
@@ -150,7 +144,7 @@ export default Canister({
     }),
 
     // Function to create layer records
-    createLayers: update([nat64, nat64, text], Layer, (age_weeks, numberOfLayers, breed) => {
+    createLayers: update([LayerPayload], Layer, ({ age_weeks, numberOfLayers, breed }) => {
         const id = generateId();
         const createdAt = ic.time();
         const available = numberOfLayers;
@@ -161,13 +155,14 @@ export default Canister({
     }),
 
     // Function to update the availability of layers after sale
-    enterSoldLayers: update([nat64, nat64, text], Layer, (age_weeks, sold, breed) => {
-        const id = generateId();
-        const createdAt = ic.time();
-        const available = 0n;
-        const newLayers = { id, age_weeks, numberOfLayers: sold, breed, createdAt, available, sold };
-        Layers.insert(id, newLayers);
-        return newLayers;
+    enterSoldLayers: update([Principal, nat64], Opt(Layer), (id, soldQuantity) => {
+        const layer = Layers.get(id);
+        if (layer) {
+            layer.available -= soldQuantity;
+            layer.sold += soldQuantity;
+            Layers.insert(id, layer);
+        }
+        return layer;
     }),
 
     // Function to get layer record by ID
@@ -180,38 +175,36 @@ export default Canister({
         return Layers.values();
     }),
 
-    // Function to add laid eggs for a specific layer
-    enterLaidEggs: update([text, nat64], Egg, (breed, laidEggs) => {
+    // Function to add laid eggs for a specific breed
+    enterLaidEggs: update([EggPayload], Egg, ({ breed, available, sold, laidEggs, damagedEggs }) => {
         const id = generateId();
         const createdAt = ic.time();
-        const available = laidEggs;
-        const sold = 0n;
-        const newEggs = { id, breed, createdAt, available, sold, laidEggs, damagedEggs: 0n };
+        const newEggs = { id, breed, createdAt, available, sold, laidEggs, damagedEggs };
         Eggs.insert(id, newEggs);
         return newEggs;
     }),
 
-    // Function to add sold eggs for a specific layer
-    enterSoldEggs: update([text, nat64], Egg, (breed, sold) => {
-        const id = generateId();
-        const createdAt = ic.time();
-        const available = sold;
-        const newEggs = { id, breed, createdAt, available, sold,laidEggs: 0n, damagedEggs: 0n };
-        Eggs.insert(id, newEggs);
-        return newEggs;
+    // Function to update sold eggs for a specific breed
+    updateSoldEggs: update([Principal, nat64], Opt(Egg), (id, soldQuantity) => {
+        const egg = Eggs.get(id);
+        if (egg) {
+            egg.available -= soldQuantity;
+            egg.sold += soldQuantity;
+            Eggs.insert(id, egg);
+        }
+        return egg;
     }),
 
-    // Function to add damaged eggs for a specific layer
-    enterDamagedEggs: update([text, nat64], Egg, (breed, damagedEggs) => {
-        const id = generateId();
-        const createdAt = ic.time();
-        const available = damagedEggs;
-        const sold = 0n;
-        const newEgg = { id, breed, createdAt, available, sold, laidEggs: 0n, damagedEggs };
-        Eggs.insert(id, newEgg);
-        return newEgg;
+    // Function to update damaged eggs for a specific breed
+    updateDamagedEggs: update([Principal, nat64], Opt(Egg), (id, damagedQuantity) => {
+        const egg = Eggs.get(id);
+        if (egg) {
+            egg.available -= damagedQuantity;
+            egg.damagedEggs += damagedQuantity;
+            Eggs.insert(id, egg);
+        }
+        return egg;
     }),
-    
     
     // Function to get egg records by ID
     getEggById: query([Principal], Opt(Egg), (id) => {
@@ -224,12 +217,8 @@ export default Canister({
     }),
 });
 
-
 // Generate a random ID
 function generateId(): Principal {
     const randomBytes = new Array(29).fill(0).map(() => Math.floor(Math.random() * 256));
     return Principal.fromUint8Array(Uint8Array.from(randomBytes));
 }
-
-  
-  
