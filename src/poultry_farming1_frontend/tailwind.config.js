@@ -11,11 +11,12 @@ export default {
   theme: {
     extend: {
       colors: {
-        'i3m-main': '#050DEB',
-        'i3m-dark': '#100D28',
-        'i3m-purple': '#8906E6',
-        'i3m-pink': '#FF00E2',
-        'white': '#FFFFFF',
+        'poultry-main': '#7DF9FF',
+        'poultry-orange': '#C36237',
+        'poultry-dark': '#4B0082',
+        // 'poultry-purple': '#9D00FF',
+        'poultry-pink': '#E75480',
+        'white': '#F5F5F5',
       },
     },
   },

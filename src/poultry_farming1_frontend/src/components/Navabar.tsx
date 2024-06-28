@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Logo from "../assets/chickenlogo.jpg";
+import { motion } from 'framer-motion';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -10,10 +11,10 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-i3m-dark text-white p-4">
+    <nav className="bg-poultry-dark text-white p-4">
       <div className="container mx-auto flex justify-between items-center relative">
         <div className="flex items-center">
-          <img src={Logo} alt="I3M Logo" className="h-10" />
+          <img src={Logo} alt="poultry Logo" className="h-10" />
         </div>
         <div className="md:hidden">
           <button onClick={toggleMenu} className="text-white focus:outline-none">
@@ -35,23 +36,18 @@ const Navbar = () => {
         </div>
         <ul className="hidden md:flex flex-grow justify-center space-x-10 items-center">
           <li>
-            <Link to="/" className="hover:text-i3m-pink transition-colors">
+            <Link to="/" className="hover:text-poultry-pink transition-colors">
               Home
             </Link>
           </li>
           <li>
-            <Link to="/about" className="hover:text-i3m-pink transition-colors">
+            <Link to="/about" className="hover:text-poultry-pink transition-colors">
               About
             </Link>
           </li>
           <li>
-            <Link to="/features" className="hover:text-i3m-pink transition-colors">
+            <Link to="/features" className="hover:text-poultry-pink transition-colors">
               Features
-            </Link>
-          </li>
-          <li>
-            <Link to="/contact" className="hover:text-i3m-pink transition-colors">
-              Contact
             </Link>
           </li>
         </ul>
@@ -60,28 +56,45 @@ const Navbar = () => {
         <div className="md:hidden">
           <ul className="flex flex-col space-y-4 mt-4">
             <li>
-              <Link to="/" className="hover:text-i3m-pink transition-colors">
+              <Link to="/" className="hover:text-poultry-pink transition-colors">
                 Home
               </Link>
             </li>
             <li>
-              <Link to="/about" className="hover:text-i3m-pink transition-colors">
+              <Link to="/about" className="hover:text-poultry-pink transition-colors">
                 About
               </Link>
             </li>
             <li>
-              <Link to="/features" className="hover:text-i3m-pink transition-colors">
+              <Link to="/features" className="hover:text-poultry-pink transition-colors">
                 Features
               </Link>
             </li>
+          </ul>
+          <ul>
             <li>
-              <Link to="/contact" className="hover:text-i3m-pink transition-colors">
-                Contact
-              </Link>
+             <motion.button
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              className="mt-4 bg-poultry-orange hover:bg-poultry-orange text-white font-bold py-2 px-4 rounded shadow align-right"
+             >
+               LOVING AGRIBUSINESS
+             </motion.button>
+            
             </li>
           </ul>
+
         </div>
       )}
+        <div>
+            <motion.button
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              className="mt-4 bg-poultry-orange hover:bg-poultry-orange text-white font-bold py-2 px-4 rounded shadow align-right"
+            >
+               LOVING AGRIBUSINESS
+            </motion.button>
+        </div>      
     </nav>
   );
 };

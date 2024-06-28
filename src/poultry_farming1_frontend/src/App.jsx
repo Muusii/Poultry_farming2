@@ -2,8 +2,8 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navabar';
 import HomePage from './pages/Homepage';
-// import AboutPage from './pages/About';
-//import Featurepage from './pages/Feature';
+import Featurepage from './pages/Feature';
+import AboutPage from './pages/About';
 // import CreatePoultryRecord from './pages/Feature/CreatePoultryRecord';
 
 import Footer from './components/Footer'
@@ -15,8 +15,8 @@ const App = () => {
       
       <Routes>
         <Route path="/" element={<HomePage />} />
-        {/* <Route path="/about" element={<AboutPage />} /> */}
-        {/* <Route path="/Featurepage" element={<Feature />} /> */}
+        <Route path="/about" element={<AboutPage />} />
+        <Route path="/feature" element={<Featurepage />} />
      
         
       </Routes>
@@ -24,5 +24,6 @@ const App = () => {
     </Router>
   );
 };
+
 
 export default App;
