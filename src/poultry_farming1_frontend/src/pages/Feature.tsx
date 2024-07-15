@@ -1,29 +1,19 @@
-// Featurepage.tsx
-import React from 'react';
-import { useForm, SubmitHandler } from 'react-hook-form';
+import React from "react";
+import CreatePoultryRecord from "../components/Poultry/CreatePoultryRecord";
+import './Feature.css'
+import Broilers from "../components/Poultry/Broilers";
+import Layers from "../components/Poultry/Layers";
 
-type Inputs = {
-  example: string;
-  exampleRequired: string;
+const FeaturePage = () => {
+  return (
+    <div className="home-page ">
+      < CreatePoultryRecord />
+      <br/>
+      < Broilers />
+      <br/>
+      < Layers />
+    </div>
+  );
 };
 
-export default function FeaturePage() {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<Inputs>();
-  
-  const onSubmit: SubmitHandler<Inputs> = (data) => {
-    console.log(data);
-  };
-
-  return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <input defaultValue="test" {...register('example')} />
-      <input {...register('exampleRequired', { required: true })} />
-      {errors.exampleRequired && <span>This field is required</span>}
-      <input type="submit" />
-    </form>
-  );
-}
+export default FeaturePage;
